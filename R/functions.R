@@ -1,7 +1,7 @@
 
 
 #' Concat polars objects
-#' @name pl_concat
+#' @name Fn_concat
 #' @param l list of DataFrame, or Series, LazyFrame or Expr
 #' @param rechunk perform a rechunk at last
 #' @param how choice of bind direction "vertical"(rbind) "horizontal"(cbind) "diagnoal" diagonally
@@ -75,7 +75,7 @@ pl$concat = function(
 
 
 #' new date_range
-#' @name pl_date_range
+#' @name Fn_date_range
 #' @param low POSIXt or Date preferably with time_zone or double or integer
 #' @param high POSIXt or Date preferably with time_zone or double or integer. If high is and
 #' interval are missing, then single datetime is constructed.

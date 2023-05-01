@@ -119,11 +119,13 @@ make_doc_hierarchy = function() {
   out = list()
   # order determines order in sidebar
   classes = c("pl", "Series", "DataFrame", "LazyFrame", "GroupBy",
-              "LazyGroupBy", "arr", "ExprBin", "ExprDT", "ExprMeta", "ExprStr", "ExprStruct", "Expr")
+              "LazyGroupBy", "Fn", "arr", "ExprBin", "ExprDT", "ExprFn",
+              "ExprMeta", "ExprStr", "ExprStruct", "Expr")
   for (cl in classes) {
     files = grep(paste0("^", cl, "_"), other, value = TRUE)
     tmp = sprintf("%s: reference/%s", sub("\\.md", "", sub("[^_]*_", "", files)), files)
     cl_label = ifelse(cl == "pl", "Polars", cl)
+    cl_label = ifelse(cl == "Fn", "Functions", cl)
     out = append(out, setNames(list(tmp), cl_label))
     other = setdiff(other, files)
   }
@@ -132,6 +134,7 @@ make_doc_hierarchy = function() {
     "arr" = "Array",
     "ExprBin" = "Binary",
     "ExprDT" = "DateTime",
+    "ExprFn" = "Functions",
     "ExprMeta" = "Meta",
     "ExprStr" = "String",
     "ExprStruct" = "Struct",
@@ -151,7 +154,7 @@ convert_hierarchy_to_yml <- function() {
   hierarchy <- make_doc_hierarchy()
 
   ### Uncomment to add a reference homepage
-  # hierarchy <- append(list(list("Reference" = "reference_home.md")), hierarchy)
+  hierarchy <- append(list("Reference" = "reference_home.md"), hierarchy)
 
   new_yaml <- orig_yaml <- yaml.load_file(
     "docs/mkdocs.yml"
